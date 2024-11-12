@@ -84,7 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
     //Check if timer is still active
     if (timerValue.value > 0) return;
     
-    
     //Check for passive key events
     if(event is KeyUpEvent) {
       detectedInput.value = "";
@@ -93,6 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
+    //Send Robot Action
+    robotController.sendPostRequest(botAction);
+
+    //Place QR Code
     if (botAction.name == "QR") {
       iconPath = getImagePath(botAction.iconPath);
       _startCountdown(5);
@@ -100,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
+    
     if (detectedInput.value != botAction.label) {     
       detectedInput.value = botAction.label;
       iconPath = getImagePath(botAction.iconPath);
